@@ -99,6 +99,8 @@ class CLProgram:
         cl_bufs.append(x._buf)
         if (event:=getattr(x, "event",None)): wait_for.append(event)
       else: cl_bufs.append(x)
+
+    # call the kernel and get pyopencl event object
     e = self.clprgs[cl_bufs[0].device](CL.cl_queue[cl_bufs[0].device], [int(g*l) for g,l in zip(global_size, local_size)] if local_size is not None else global_size, local_size, *cl_bufs, wait_for=wait_for)
     if wait:
       e.wait()

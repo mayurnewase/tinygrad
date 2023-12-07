@@ -121,7 +121,7 @@ from tinygrad.ops import LazyOp, BinaryOps, LoadOps
 
 # the 2+3 from before
 result = Tensor([2]) + Tensor([3])
-print(type(result.lazydata), result.lazydata)  # let's look at the lazydata of result
+print(type(result.lazydata), result.lazydata, "\n")  # let's look at the lazydata of result
 
 # you'll see it has a LazyOp
 # the op type is BinaryOps.ADD
@@ -129,6 +129,7 @@ print(type(result.lazydata), result.lazydata)  # let's look at the lazydata of r
 lazyop: LazyOp = result.lazydata.op
 assert lazyop.op == BinaryOps.ADD
 assert len(lazyop.src) == 2
+print(lazyop.src, "\n")
 
 # the first source is the 2, it comes from the CPU
 # the source is a LazyBuffer that is a "CPU" Tensor
@@ -142,7 +143,7 @@ assert result.lazydata.realized is None, "the LazyBuffer is not realized yet"
 result.realize()
 assert result.lazydata.realized is not None, "the LazyBuffer is realized!"
 # this brings us nicely to DeviceBuffer, of which the realized ClangBuffer is a subclass
-assert 'RawMallocBuffer' in str(type(result.lazydata.realized))
+# assert 'RawMallocBuffer' in str(type(result.lazydata.realized))
 # getting ahead of ourselves, but we can copy the DeviceBuffer toCPU
 assert result.lazydata.realized.toCPU()[0] == 5, "when put in numpy with toCPU, it's 5"
 
@@ -297,6 +298,9 @@ from tinygrad.jit import CacheCollector
 CacheCollector.start()       # enables the cache
 result.realize()             # create the program and runs it
 cache_saved = CacheCollector.finish()  # disable the cache
+
+#TODO: do JIT inside out today
+#TODO: then get on its c prog generation
 
 # there's one ASTRunner in the cache
 assert len(cache_saved) == 1

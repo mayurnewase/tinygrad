@@ -60,7 +60,7 @@ class Tensor:
     self._ctx: Optional[Function] = None
     if isinstance(data, LazyBuffer): assert dtype is None or dtype == data.dtype, "dtype doesn't match, and casting isn't supported"
     elif isinstance(data, (int, float)):
-      data = LazyBuffer.loadop(LoadOps.CONST, tuple(), dtype or Tensor.default_type, device, data)
+      data = LazyBuffer.loadop(LoadOps.CONST, tuple(), dtype or Tensor.default_type, device, data) # NOTE: this used in example
     elif data is None or data.__class__ is list:
       assert dtype is None or dtype.np is not None, f"{dtype} doesn't have a numpy dtype"
       data = LazyBuffer.fromCPU(np.array([] if data is None else data, dtype=(dtype or Tensor.default_type).np))
@@ -102,7 +102,7 @@ class Tensor:
     run_schedule(sched)
 
   def realize(self) -> Tensor:
-    run_schedule(self.lazydata.schedule())
+    run_schedule(self.lazydata.schedule())  # lazydata is lazybuffer -> <LB () dtypes.float op=BinaryOps.ADD st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),))>
     return self
 
   def assign(self, x) -> Tensor:
@@ -680,6 +680,7 @@ class Tensor:
   def add(self, x:Union[Tensor, float], reverse=False) -> Tensor:
     x = self._to_float(x)
     return mlops.Add.apply(*self._broadcasted(x, reverse)) if x.__class__ is Tensor or x else self
+ 
   def sub(self, x:Union[Tensor, float], reverse=False) -> Tensor:
     x = self._to_float(x)
     return mlops.Sub.apply(*self._broadcasted(x, reverse)) if x.__class__ is Tensor or x else (-self if reverse else self)

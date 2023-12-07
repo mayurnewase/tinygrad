@@ -9,6 +9,8 @@ from tinygrad.features.image import fix_schedule_for_images
 
 def run_schedule(schedule:List[ScheduleItem], disable_logging=False):
   # HACK: images can be not usable due to shape
+  breakpoint()
+  
   if IMAGE >= 2: schedule = fix_schedule_for_images(schedule)
 
   # NOTE: if you for loop the schedule it's slow because nothing frees
@@ -37,8 +39,10 @@ def run_schedule(schedule:List[ScheduleItem], disable_logging=False):
       # we don't have an output buffer, we have to create it, and create to max size if it has symbolic shape
       si.out.realized = si.out.output_buffer if si.out.output_buffer is not None else \
         Device[si.out.device].buffer(prod((s if isinstance(s, int) else s.max for s in si.out.shape)), si.out.dtype, **si.out._device_extra_args())
+        # si.out.realized is instance of <class 'tinygrad.runtime.ops_gpu.CLBuffer'>
+
       # TODO: should this be handled here? it probably just shouldn't be in the schedule
-      if not hasattr(si.out.realized, 'size') or si.out.realized.size != 0:
+      if not hasattr(si.out.realized, 'size') or si.out.realized.size != 0: # size is 1
         Device[si.out.device].get_runner(si.ast).exec([si.out.realized] + [x.realized for x in si.inputs], si.var_vals)
     del si.out.op
     for v in si.out.views: del v.op

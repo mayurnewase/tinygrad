@@ -1,0 +1,175 @@
+<mxfile host="65bd71144e">
+    <diagram id="Pav9lM_dtAHcs4izw-RZ" name="Page-1">
+        <mxGraphModel dx="4019" dy="2311" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="60" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-945" y="380" width="800" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-730" y="992.5" width="520" height="500" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-90" y="480" width="680" height="440" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-140" y="940" width="720" height="570" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-130" y="-730" width="630" height="530" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="class Tensor&lt;br&gt;&lt;br&gt;init(data: int, float, lazyBuffer&amp;nbsp; , device: str)&lt;br&gt;&lt;br&gt;class vars:&lt;br&gt;lazy_data = data&lt;br&gt;device: str&lt;br&gt;&lt;br&gt;methods:&lt;br&gt;numpy()&lt;br&gt;realize()&lt;br&gt;__add__" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-420" y="60" width="280" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1220" y="650" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Class LazyBuffer&lt;br&gt;&lt;br&gt;init (device, shapetracker, op, optype, src : RawBuffer, dtype, base )&lt;br&gt;&lt;br&gt;class vars&lt;br&gt;_realized = src&lt;br&gt;children = WeakSet()&lt;br&gt;views = WeakSet()&lt;br&gt;&lt;br&gt;methods:&lt;br&gt;schedule(seen)&lt;br&gt;loadop&lt;br&gt;copy_to_device&lt;br&gt;contiguous&lt;br&gt;fromCPU&lt;br&gt;e -&amp;gt; takes op and operandas and executes op&lt;br&gt;_reduce_ops&lt;br&gt;_movement_ops&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-50" y="-50" width="460" height="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Class Shapetracker&lt;br&gt;&lt;br&gt;dataclass&lt;br&gt;views&lt;br&gt;&lt;br&gt;methods&lt;br&gt;from_shape&lt;br&gt;contiguous&lt;br&gt;shpae&lt;br&gt;size&lt;br&gt;vars&lt;br&gt;var_vals&lt;br&gt;unbind&lt;br&gt;to_movement_ops&lt;br&gt;real_strides&lt;br&gt;unit_stride_axes&lt;br&gt;_expr_idx&lt;br&gt;simplify&lt;br&gt;expr_idxs&lt;br&gt;expr_node&lt;br&gt;axis_is_masked&lt;br&gt;pad&lt;br&gt;shrink&lt;br&gt;expand&lt;br&gt;permute&lt;br&gt;stride&lt;br&gt;reshape&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-720" y="1052.5" width="150" height="390" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="class kernel&lt;br&gt;&lt;br&gt;init(ast:LazyOp, opts)&lt;br&gt;&lt;br&gt;class vars:&lt;br&gt;info&lt;br&gt;bufs&lt;br&gt;earlybufs&lt;br&gt;full_buf_index&lt;br&gt;sts&lt;br&gt;reduce&lt;br&gt;permute&lt;br&gt;applied_opts&lt;br&gt;upcasted&lt;br&gt;local_dims&lt;br&gt;tensor_core&lt;br&gt;&lt;br&gt;methods:&lt;br&gt;copy&lt;br&gt;upcasted_acis&lt;br&gt;get_upcasted_dims&lt;br&gt;colors&lt;br&gt;reshpae_and_permute&lt;br&gt;upcast&lt;br&gt;shift_to&lt;br&gt;simplify_ones&lt;br&gt;simplify_merge_adjacent&lt;br&gt;alias_buffer&lt;br&gt;apply_tensor_cores&lt;br&gt;apply_opt&lt;br&gt;required_optimizations&lt;br&gt;hand_coded_optimizations&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-110" y="992.5" width="240" height="465" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="class RawBuffer&lt;br&gt;&lt;br&gt;init(size, dtype, buf, allocator)&lt;br&gt;&lt;br&gt;methods:&lt;br&gt;fromCPU&lt;br&gt;fromBuffer&lt;br&gt;toCPU" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry y="-684" width="400" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="runtime" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="-90" y="-690" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="class RawBufferCopyIn" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-90" y="-460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="class RawBufferMapped" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="-460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="class RawBufferCopyInOut" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="-460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="class RawBufferTransfer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="-460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="class LRUAllocator&lt;br&gt;&lt;br&gt;methods:&lt;br&gt;ensure_has_free_space&lt;br&gt;_alloc_buffer&lt;br&gt;_free_buffer&lt;br&gt;__call_&lt;br&gt;free" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-80" y="-370" width="240" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="codegen" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="-80" y="950" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="class linearizer (kernel)&lt;br&gt;&lt;br&gt;methods:&lt;br&gt;uop_alu_idx&lt;br&gt;const&lt;br&gt;global_load&lt;br&gt;global_store&lt;br&gt;linearize&lt;br&gt;uop&lt;br&gt;ast_parse&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="992.5" width="280" height="367.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="class localbuffer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="510" width="140" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="ops" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="-40" y="510" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="class LazyOp&lt;br&gt;&lt;br&gt;dataclass&lt;br&gt;op&lt;br&gt;src&lt;br&gt;arg&lt;br&gt;&lt;br&gt;methods:&lt;br&gt;buffers&lt;br&gt;hash&lt;br&gt;mem_buffers&lt;br&gt;get_lazyops&lt;br&gt;replace_with_movement_ops&lt;br&gt;st&lt;br&gt;realized&lt;br&gt;children&lt;br&gt;reshape&lt;br&gt;pad&lt;br&gt;expand&lt;br&gt;permute&lt;br&gt;shrink&lt;br&gt;stride" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-60" y="540" width="270" height="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="class MemBuffer&lt;br&gt;&lt;br&gt;dataclass&lt;br&gt;idx&lt;br&gt;dtype&lt;br&gt;shapeTracker&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="640" width="140" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="class ConstBuffer&lt;br&gt;&lt;br&gt;dataclass&lt;br&gt;value&lt;br&gt;dtype&lt;br&gt;shapeTracker" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="410" y="640" width="140" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="class ScheduleItem&lt;br&gt;&lt;br&gt;dataclass&lt;br&gt;ast: LazyOp&lt;br&gt;out: LazyBuffer&lt;br&gt;inputs: tuple(LazyBuffer)&lt;br&gt;var_vals" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="770" width="140" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="Shape" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="-690" y="1012.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="program&lt;br&gt;&lt;br&gt;result = Tensor(2) + Tensor(3)&lt;br&gt;&lt;br&gt;CacheCollector.start()&lt;br&gt;&lt;br&gt;result.realize()&lt;br&gt;&lt;br&gt;cache = CacheCollector.finish()&lt;br&gt;&lt;br&gt;cache[0].prg.prg" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+                    <mxGeometry x="-750" y="-110" width="280" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="def run_schedule&lt;br&gt;&lt;br&gt;takes scheduleitem which is data class with&amp;nbsp; ast:lazyop, out:lazybuffer, inputs:tuple[lazybuffer], var_vals&lt;br&gt;&lt;br&gt;creates buffer (&amp;lt;class 'tinygrad.runtime.ops_gpu.CLBuffer'&amp;gt; instance if gpu) using Device.buffer()&lt;br&gt;&lt;br&gt;runs it using Device.get_runner().exec()" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-880" y="500" width="550" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.393;exitY=0.741;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="2" target="32">
+                    <mxGeometry width="100" relative="1" as="geometry">
+                        <mxPoint x="-700" y="240" as="sourcePoint"/>
+                        <mxPoint x="-600" y="240" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="-500" y="270"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="35" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-1330" y="1600" width="1570" height="800" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="device.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="-675" y="1640" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="class interpreted" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-1110" y="1925" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="class compiled&lt;br&gt;&lt;br&gt;get_runner (ast: LazyOp) -&amp;gt; generates string c++ code and returns instance of CompiledASTRunner" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-20" y="1900" width="230" height="146" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="290" y="1724" width="900" height="816" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="runtime" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="330" y="1765" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="class compiledASTRunner(JITRunner)&lt;br&gt;&lt;br&gt;init(ast: lazyop, name, prg: str)&lt;br&gt;&lt;br&gt;methods:&lt;br&gt;build(compiler: function diskcache.wrapper, runtime: runtime.ops_gpu_CLPRogram class) -&amp;gt; call compiler(prg) to generate assembly code, then inits the chosen with it runtime(generated_assembly_code) which is stored in clprg variable, for gpu it will call CLProgram(asssembly_code by NVM)&lt;br&gt;&lt;br&gt;__call__(rawbufs:[RawBuffer&lt;br&gt;], var_vals, jit ) -&amp;gt; calls clprg(rawbufs) and returns None" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-610" y="1900" width="580" height="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="class InterpretedASTRUnner (JitRunner)&lt;br&gt;&lt;br&gt;init (ast: LazyOP, fxn: callable)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-940" y="1930" width="230" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="class JITRunner&lt;br&gt;&lt;br&gt;methods:&lt;br&gt;exec(rawbufs: [RawBUffer], var_vals) -&amp;gt; calls __call__(rawbufs, var_vals) and adds info in cacheCollector instance" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-790" y="1710" width="330" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="340" y="2120" width="780" height="410" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="52">
+                    <mxGeometry width="779.9999999999998" height="410" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="class CLAllocator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="52">
+                    <mxGeometry x="42.54545454545454" y="50" width="170.18181818181816" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="class _CL" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="52">
+                    <mxGeometry x="241.09090909090904" y="50" width="170.18181818181816" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="class CLBuffer (RawBufferCopyInOut, RawBufferTransfer)&lt;br&gt;&lt;br&gt;has methods _copyinm _copyout, _transfer using opencl lib to copy data from cpu &amp;lt;&amp;gt; gpu&lt;br&gt;&lt;br&gt;here toCPU() method will call _copyout() which copies data from gpu to cpu and converts into numpy array" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="52">
+                    <mxGeometry x="42.55" y="130" width="307.45" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="class CLProgram&lt;br&gt;&lt;br&gt;init(prg: assembly code) -&amp;gt;&amp;nbsp; converts assemby code to opencl code by cl.Program(assembly code) then builds it with cl_program.build() saves in clprgs&lt;br&gt;&lt;br&gt;__call__(bufs) -&amp;gt; calls clprgs()" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="52">
+                    <mxGeometry x="380" y="130" width="357.45" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="&lt;div style=&quot;color: rgb(212, 212, 212); background-color: rgb(30, 30, 30); font-family: &amp;quot;Droid Sans Mono&amp;quot;, &amp;quot;monospace&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #9cdcfe;&quot;&gt;GPUDevice&lt;/span&gt; = &lt;span style=&quot;color: #4ec9b0;&quot;&gt;Compiled&lt;/span&gt;(&lt;span style=&quot;color: #4ec9b0;&quot;&gt;CLBuffer&lt;/span&gt;, &lt;span style=&quot;color: #4ec9b0;&quot;&gt;LinearizerOptions&lt;/span&gt;(), &lt;span style=&quot;color: #9cdcfe;&quot;&gt;OpenCLRenderer&lt;/span&gt;, &lt;span style=&quot;color: #dcdcaa;&quot;&gt;compile_gpu&lt;/span&gt;, &lt;span style=&quot;color: #4ec9b0;&quot;&gt;CLProgram&lt;/span&gt;, &lt;span style=&quot;color: #4fc1ff;&quot;&gt;CL&lt;/span&gt;.&lt;span style=&quot;color: #dcdcaa;&quot;&gt;synchronize&lt;/span&gt;)&lt;/div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="52">
+                    <mxGeometry x="42.54545454545454" y="340" width="680.7272727272726" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" value="ops_gpu" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="52">
+                    <mxGeometry x="62.39999999999999" y="10" width="85.09090909090908" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="340" y="1820" width="770" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="lib.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="360" y="1831" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="class RawBuffer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="450" y="1840" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="class RawBufferCopyInOut" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="367" y="1940" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="class RawBufferTransfer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="520" y="1930" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" value="these classes provide methods to copy data from cpu to gpu and vice versa, important methods which subclasses should override are _copyin, _copyout, _transfer" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="470" y="2030" width="420" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="realize.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="-880" y="420" width="60" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

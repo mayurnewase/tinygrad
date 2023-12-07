@@ -147,6 +147,7 @@ class Linearizer(Kernel):
 
   kernel_cnt: Final[DefaultDict[str, int]] = defaultdict(int)
   def linearize(self):
+    breakpoint()
     # no new opts and we already ran? skip relinearizing
     if self.applied_opts == self.applied_opts_cache: return self
 
@@ -165,11 +166,11 @@ class Linearizer(Kernel):
     self.loop_uops: Dict[str, UOp] = {}
 
     # add global buffers
-    for i,buf in enumerate(self.bufs):
+    for i,buf in enumerate(self.bufs): # [MemBuffer(idx=0, dtype=dtypes.float, st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),))), ConstBuffer(val=2.0, dtype=dtypes.float, st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),))), ConstBuffer(val=3.0, dtype=dtypes.float, st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),)))]
       if isinstance(buf, MemBuffer):
         self.buf_uops[i] = self.uop(UOps.DEFINE_GLOBAL, PtrDType(buf.dtype) if not isinstance(buf.dtype, ImageDType) else buf.dtype, (), (f"data{buf.idx}", buf.dtype))
     # add var vals
-    for var in vars_from_ast(self.ast):
+    for var in vars_from_ast(self.ast): # LazyOp(op=BinaryOps.ADD, src=(LazyOp(op=BufferOps.CONST, src=(), arg=ConstBuffer(val=2.0, dtype=dtypes.float, st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),)))), LazyOp(op=BufferOps.CONST, src=(), arg=ConstBuffer(val=3.0, dtype=dtypes.float, st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),))))), arg=None)
       assert var.expr is not None
       self.loop_uops[var.expr] = self.uop(UOps.DEFINE_GLOBAL, dtypes.int32, (), (var.expr, dtypes._arg_int32))
     # define local buffers
@@ -352,9 +353,9 @@ class Linearizer(Kernel):
 
     # load latebufs
     loaded_buffers.update({b:self.global_load(i, global_idxs+local_idxs+fake_reduce_idxs+upcast_idxs) for i,b in enumerate(self.bufs) if b not in self.earlybufs and i != 0 and b.__class__ is not LocalBuffer})
-
+    # {ConstBuffer(val=2.0, dtype=dtypes.float, st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),))): [UOps.CONST          : dtypes.float              []                               2.0], ConstBuffer(val=3.0, dtype=dtypes.float, st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),))): [UOps.CONST          : dtypes.float              []                               3.0]}
     # run late AST
-    val = self.ast_parse(self.ast, acc, None, loaded_buffers)
+    val = self.ast_parse(self.ast, acc, None, loaded_buffers) # [UOps.ALU            : dtypes.float              [<UOps.CONST: 10>, <UOps.CONST: 10>] BinaryOps.ADD]
 
     # store
     self.global_store(0, global_idxs+local_idxs+fake_reduce_idxs+upcast_idxs, val)
@@ -391,7 +392,7 @@ class Linearizer(Kernel):
           if any(x in parents for x in loop_stack[i]) or i == 0:
             loop_stack[i].append(u)
             break
-    self.uops = flatten(loop_stack)
+    self.uops = flatten(loop_stack)  # [UOps.DEFINE_GLOBAL  : ptr.dtypes.float []   ('data0', dtypes.float), UOps.CONST : dtypes.float  []  2.0, UOps.CONST : dtypes.float [] 3.0, UOps.ALU : dtypes.float [<UOps.CONST: 10>, <UOps.CONST: 10>] BinaryOps.ADD, UOps.CONST  : dtypes.int [] 0, UOps.STORE :[<UOps.DEFINE_GLOBAL: 5>, <UOps.CONST: 10>, <UOps.ALU: 13>] None]
 
     # uops optimization
     changed_something = True
@@ -412,6 +413,8 @@ class Linearizer(Kernel):
 
     # (recursively) remove childless uops
     # NOTE: DEFINE_GLOBAL should be removable, but we'd have to propagate that
+    breakpoint()
+    
     UOPS_W_SIDE_EFFECTS = {UOps.STORE, UOps.BARRIER, UOps.DEFINE_GLOBAL}
     while 1:
       has_child: Set[UOp] = set()

@@ -70,7 +70,7 @@ class Kernel:
     self.ast = ast
 
     # fetch lazyop info
-    self.info: FlopCounter = get_lazyop_info(self.ast)
+    self.info: FlopCounter = get_lazyop_info(self.ast)  # FlopCounter(shape=(), dtype=dtypes.float, flops=1, mem={})
 
     # there's only allowed to be one reduceop
     reduceops = [x for x in self.ast.get_lazyops() if x.op in ReduceOps]
@@ -79,7 +79,7 @@ class Kernel:
 
     # create new shapetrackers inside this kernel, we will permute them
     self.bufs: List[Union[MemBuffer, ConstBuffer, LocalBuffer]] = [MemBuffer(0, self.info.dtype, ShapeTracker.from_shape(self.info.shape))] + dedup([x.arg for x in self.ast.get_lazyops() if x.op in BufferOps])
-
+    #bufs =  [MemBuffer(idx=0, dtype=dtypes.float, st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),))), ConstBuffer(val=2.0, dtype=dtypes.float, st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),))), ConstBuffer(val=3.0, dtype=dtypes.float, st=ShapeTracker(views=(View(shape=(), strides=(), offset=0, mask=None, contiguous=True),)))]
     # get earlybufs, before the one reduce op
     self.earlybufs = [x.arg for x in self.reduceop.get_lazyops() if x.op in BufferOps] if self.reduceop else []
     self.full_buf_index: int = self.bufs.index(self.earlybufs[0]) if self.earlybufs else 0
